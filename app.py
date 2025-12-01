@@ -2,10 +2,10 @@ from flask import Flask, render_template,request
 from google import genai
 from pydantic import BaseModel, Field
 from google.genai import types
-from typing import List, Optional
+from typing import List
 import os
 import html
-from typing import Union, Literal
+from typing import Literal
 from dotenv import load_dotenv
 load_dotenv()
 import os
