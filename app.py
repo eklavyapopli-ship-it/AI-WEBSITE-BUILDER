@@ -165,4 +165,4 @@ def home():
 
     
     return render_template("main.html")
-app.run(debug=True)
+app.run(host='0.0.0.0',debug=True)
