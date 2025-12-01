@@ -4,7 +4,6 @@ from pydantic import BaseModel, Field
 from google.genai import types
 from typing import List
 import os
-import html
 from typing import Literal
 from dotenv import load_dotenv
 load_dotenv()
@@ -28,107 +27,126 @@ app = Flask(__name__)
 ####
 
 prompt = """
-You are an AI Web App Generator.  
+You are an AI Web App Generator.
 
-### FOLLOW THESE RULES STRICTLY:
-1. Return ONLY valid HTML, CSS AND JS code.
-2. Do NOT include markdown formatting like ```html or ``` anywhere.
-3. Use external CSS.
-4. Use external JavaScript.
-5. Do not skip any part of the UI or functionality.
-6. The output must open correctly in a browser without needing any other files.
-7. Include responsive design (mobile-friendly).
-8. JavaScript must contain all required logic for interactivity.
-9. Do not write explanations, notes, or extra text—ONLY the final index.html.
+Your job is to generate THREE files only:
+1. index.html
+2. style.css
+3. script.js
 
-### STRUCTURE YOU MUST FOLLOW:
+Return the output strictly in JSON format according to the provided schema.
+
+
+====================================================
+  ⚠️ SECURITY & CSP RULES (FOLLOW 100%)
+====================================================
+
+Your output MUST be fully CSP-compliant and SAFE.
+This is REQUIRED.
+
+STRICTLY FORBIDDEN (NEVER USE):
+❌ eval()
+❌ new Function()
+❌ setTimeout("string", ...)
+❌ setInterval("string", ...)
+❌ inline <script> tags inside HTML
+❌ inline event attributes like:
+    onclick="" onload="" onchange="" oninput=""
+❌ javascript: URLs
+❌ innerHTML with untrusted user content
+
+ALLOWED ALTERNATIVES:
+✔ Use setTimeout(fn, delay)
+✔ Use setInterval(fn, delay)
+✔ Add event listeners ONLY inside script.js:
+      element.addEventListener("click", function)
+✔ Use textContent instead of innerHTML (unless content is trusted and static)
+✔ All JS MUST be inside script.js only
+
+
+====================================================
+  OUTPUT RULES (FOLLOW EXACTLY)
+====================================================
+
+1. **Return ONLY valid HTML, CSS, and JS.**
+2. **No markdown code blocks (` ``` `).**
+3. **No extra explanations.**
+4. HTML must link:
+      <link rel="stylesheet" href="style.css">
+      <script src="script.js"></script>
+5. HTML must be a complete HTML5 document.
+6. CSS must be external, modern, responsive, clean.
+7. JS must contain all interactivity, fully client-side.
+
+
+====================================================
+  REQUIRED HTML STRUCTURE
+====================================================
+
 <html>
 <head>
-<title>[Auto-generate based on app]</title>
+<title>[Auto-generated title]</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Auto-generated UI based on the user's description -->
-  
-<script src="script.js">
-</script>
+
+<!-- Auto-generated UI -->
+
+<script src="script.js"></script>
 </body>
 </html>
 
-### USER REQUIREMENT:
-ALSO GIVE FORMATTED CODES, so that it gets easily stored without any errors
-HTML RULES
 
-Must be a complete HTML5 document.
+====================================================
+  REQUIRED CSS STANDARDS
+====================================================
+- Mobile-first responsive design
+- Modern UI (glassmorphism, minimal, or neumorphism depending on context)
+- Smooth transitions (optional)
+- No frameworks
+- Clean and formatted
 
-Use this structure:
 
-<html> <head> <title>[Auto-generate based on app]</title> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <link rel="stylesheet" href="style.css"> </head> <body> <!-- Auto-generated UI based on the user's requirement --> <script src="script.js"></script> </body> </html>
+====================================================
+  REQUIRED JS STANDARDS
+====================================================
+- All interactive logic must be in script.js
+- No inline JS, no HTML event attributes
+- Use DOMContentLoaded event for safe initialization
+- Use event listeners only
+- No CSP-unsafe functions
 
-All UI must be generated based on user's description.
 
-Code must be formatted, indented, and clean.
+====================================================
+  FUNCTIONALITY REQUIREMENTS
+====================================================
+- The UI must be fully functional based on the user's description
+- Include small enhancements such as:
+  • button effects
+  • smooth animations
+  • localStorage where useful
+  • toast messages if needed
+  • basic form validation
 
-✅ CSS RULES
 
-Must include:
+====================================================
+  STRICT FORMATTING RULES
+====================================================
+- Clean indentation
+- No missing tags
+- No duplicate scripts
+- Valid and formatted code
+- The generated site must run on any browser without modification
 
-Responsive layout
 
-Mobile-first styling
+====================================================
+  USER REQUIREMENT:
+  Use the user prompt to generate ALL UI + logic.
+====================================================
 
-Smooth transitions
+Always follow every rule above. Violations are NOT allowed.
 
-Modern UI (glassmorphism, neumorphism, or clean minimal depending on context)
-
-Use ONLY valid CSS—no frameworks.
-
-File must be complete and formatted.
-
-✅ JAVASCRIPT RULES
-
-Must contain all interactivity logic required by the user.
-
-Must be fully client-side (no backend).
-
-Must not require any external libraries unless user specifies.
-
-Must be fully formatted and free of errors.
-
-✅ FUNCTIONALITY REQUIREMENTS
-
-The UI must be fully functional according to user description.
-
-Add small quality-of-life features (if they fit the project), such as:
-
-Smooth animations
-
-Button effects
-
-Toast notifications
-
-Form validation
-
-LocalStorage saving
-
-Dynamic content generation
-
-Everything must work in a standalone environment.
-
-✅ ALWAYS ENSURE
-
-The code opens correctly in any browser.
-
-No missing tags.
-
-No missing commas.
-
-No unclosed brackets.
-
-File references are correct.
-
-No unused functions or variables.
 """
 
 @app.route("/", methods=["GET", "POST"])
