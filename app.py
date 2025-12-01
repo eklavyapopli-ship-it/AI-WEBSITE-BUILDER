@@ -135,7 +135,6 @@ No unused functions or variables.
 def home():
     inst = request.form.get('test')
     if inst != None:
-        inst = html.escape(inst)
         response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=inst,
