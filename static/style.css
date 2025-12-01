@@ -1,0 +1,402 @@
+/* General Styles */
+:root {
+    --primary-bg: #1a1a2e;
+    --secondary-bg: #16213e;
+    --card-bg: #0f3460;
+    --primary-text: #e0e0e0;
+    --secondary-text: #b0b0b0;
+    --accent-color: #e94560;
+    --hover-color: #c0392b;
+    --border-color: #0c7b93;
+    --completed-text: #5cb85c;
+    --shadow-light: rgba(0, 0, 0, 0.4);
+    --shadow-dark: rgba(0, 0, 0, 0.7);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--primary-text);
+    line-height: 1.6;
+    scroll-behavior: smooth;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--secondary-bg) 0%, var(--primary-bg) 100%);
+    color: #fff;
+    text-align: center;
+    padding: 100px 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 15px var(--shadow-dark);
+}
+
+.hero-section h1 {
+    font-size: 3.5em;
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px var(--shadow-dark);
+}
+
+.hero-section .subtitle {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+    font-weight: 300;
+    max-width: 600px;
+    opacity: 0.9;
+}
+
+.start-now-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 10px var(--shadow-light);
+}
+
+.start-now-btn:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-3px);
+}
+
+/* Task Manager Section */
+.task-manager-section {
+    padding: 80px 0;
+    background-color: var(--primary-bg);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.task-app-card {
+    background-color: var(--secondary-bg);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-dark);
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 40px;
+}
+
+.task-app-card h2 {
+    text-align: center;
+    color: var(--accent-color);
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.task-input-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+#new-task-input {
+    flex-grow: 1;
+    padding: 12px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--primary-text);
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#new-task-input::placeholder {
+    color: var(--secondary-text);
+}
+
+#new-task-input:focus {
+    border-color: var(--accent-color);
+}
+
+#add-task-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+#add-task-btn:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+.task-filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background-color: var(--card-bg);
+    color: var(--primary-text);
+    border: 1px solid var(--border-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.filter-btn:hover {
+    background-color: var(--border-color);
+}
+
+.filter-btn.active {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-item {
+    background-color: var(--card-bg);
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px var(--shadow-light);
+    transition: all 0.4s ease-out;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.task-item.entering {
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.task-item.entered {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.task-item.deleting {
+    opacity: 0;
+    height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+    transform: translateY(-10px);
+}
+
+.task-item.completed .task-text {
+    text-decoration: line-through;
+    color: var(--secondary-text);
+}
+
+.task-text {
+    flex-grow: 1;
+    margin-right: 15px;
+    font-size: 1.05em;
+}
+
+.task-actions button {
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-left: 10px;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.task-actions button:hover {
+    transform: scale(1.1);
+}
+
+.task-actions .complete-btn.pending-status {
+    color: var(--border-color);
+}
+
+.task-actions .complete-btn.completed-status {
+    color: var(--completed-text);
+}
+
+.task-actions .delete-btn {
+    color: var(--accent-color);
+}
+
+/* Info Cards Section */
+.info-cards-section {
+    background-color: var(--card-bg);
+    padding: 50px 0;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px var(--shadow-dark);
+    width: 100%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.info-cards-section h2 {
+    color: var(--accent-color);
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 0 20px;
+}
+
+.info-card {
+    background-color: var(--secondary-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow-dark);
+}
+
+.info-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.info-card h3 {
+    color: var(--accent-color);
+    font-size: 1.3em;
+    margin: 15px 15px 10px;
+}
+
+.info-card p {
+    color: var(--secondary-text);
+    font-size: 0.9em;
+    padding: 0 15px 15px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--secondary-bg);
+    color: var(--secondary-text);
+    text-align: center;
+    padding: 25px 20px;
+    margin-top: 50px;
+    border-top: 1px solid var(--card-bg);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.5em;
+    }
+
+    .hero-section .subtitle {
+        font-size: 1.2em;
+    }
+
+    .start-now-btn {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
+
+    .task-manager-section {
+        flex-direction: column;
+        align-items: center;
+        padding: 50px 0;
+    }
+
+    .task-app-card, .info-cards-section {
+        margin-bottom: 30px;
+        max-width: 95%;
+    }
+
+    .task-input-section {
+        flex-direction: column;
+    }
+
+    #add-task-btn {
+        width: 100%;
+    }
+
+    .task-filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .filter-btn {
+        width: 100%;
+    }
+
+    .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .task-text {
+        margin-right: 0;
+    }
+
+    .task-actions {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-section h1 {
+        font-size: 2em;
+    }
+
+    .hero-section .subtitle {
+        font-size: 1em;
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .info-cards-section h2, .task-app-card h2 {
+        font-size: 1.6em;
+    }
+}

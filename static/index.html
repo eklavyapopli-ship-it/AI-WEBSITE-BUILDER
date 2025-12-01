@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMaster Pro - Smart Productivity</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="hero-section">
+        <div class="container">
+            <h1>TaskMaster Pro</h1>
+            <p class="subtitle">Smart Productivity for Everyone</p>
+            <button class="start-now-btn">Start Now</button>
+        </div>
+    </header>
+
+    <main id="task-manager-section" class="task-manager-section">
+        <div class="container">
+            <section class="task-app-card">
+                <h2>Your Tasks</h2>
+                <div class="task-input-section">
+                    <input type="text" id="new-task-input" placeholder="Add a new task...">
+                    <button id="add-task-btn">Add Task</button>
+                </div>
+                <div class="task-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="pending">Pending</button>
+                    <button class="filter-btn" data-filter="completed">Completed</button>
+                </div>
+                <ul id="task-list" class="task-list">
+                    <!-- Tasks will be dynamically added here -->
+                </ul>
+            </section>
+
+            <section class="info-cards-section">
+                <h2>Boost Your Workflow</h2>
+                <div class="card-grid">
+                    <div class="info-card">
+                        <img src="https://picsum.photos/id/1015/300/200" alt="Team Collaboration">
+                        <h3>Team Collaboration</h3>
+                        <p>Streamline communication and assign tasks effortlessly within your team.</p>
+                    </div>
+                    <div class="info-card">
+                        <img src="https://picsum.photos/id/1060/300/200" alt="Project Management">
+                        <h3>Project Management</h3>
+                        <p>Keep track of project progress, deadlines, and key milestones.</p>
+                    </div>
+                    <div class="info-card">
+                        <img src="https://picsum.photos/id/1020/300/200" alt="Personal Growth">
+                        <h3>Personal Growth</h3>
+                        <p>Organize your personal goals and achieve more with structured planning.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 TaskMaster Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
